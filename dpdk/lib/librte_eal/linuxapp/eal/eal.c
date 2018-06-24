@@ -77,6 +77,8 @@
 #include <malloc_heap.h>
 #include <rte_vfio.h>
 
+#include <libdune/dune-dpdk.h>
+
 #include "eal_private.h"
 #include "eal_thread.h"
 #include "eal_internal_cfg.h"
@@ -681,6 +683,13 @@ sync_func(__attribute__((unused)) void *arg)
 	return 0;
 }
 
+static int
+dune_func(__attribute__((unused)) void *arg)
+{
+	dune_enter();
+	return 0;
+}
+
 inline static void
 rte_eal_mcfg_complete(void)
 {
@@ -970,6 +979,11 @@ rte_eal_init(int argc, char **argv)
 	}
 
 	rte_eal_mcfg_complete();
+
+	dune_dpdk_init_and_enter();
+
+	rte_eal_mp_remote_launch(dune_func, NULL, SKIP_MASTER);
+	rte_eal_mp_wait_lcore();
 
 	return fctret;
 }

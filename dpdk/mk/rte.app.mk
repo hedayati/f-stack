@@ -230,6 +230,8 @@ endif # !CONFIG_RTE_BUILD_SHARED_LIBS
 
 _LDLIBS-y += $(EXECENV_LDLIBS)
 
+_LDLIBS-y += -L$(RTE_SDK)/../../dune/libdune -ldune
+
 LDLIBS += $(_LDLIBS-y) $(CPU_LDLIBS) $(EXTRA_LDLIBS)
 
 # all the words except the first one

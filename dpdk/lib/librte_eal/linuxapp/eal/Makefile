@@ -44,12 +44,14 @@ VPATH += $(RTE_SDK)/lib/librte_eal/common
 CFLAGS += -I$(SRCDIR)/include
 CFLAGS += -I$(RTE_SDK)/lib/librte_eal/common
 CFLAGS += -I$(RTE_SDK)/lib/librte_eal/common/include
+CFLAGS += -I$(RTE_SDK)/../../dune
 CFLAGS += $(WERROR_FLAGS) -O3
 
 LDLIBS += -ldl
 LDLIBS += -lpthread
 LDLIBS += -lgcc_s
 LDLIBS += -lrt
+LDLIBS += -L$(RTE_SDK)/../../dune/libdune -ldune
 ifeq ($(CONFIG_RTE_EAL_NUMA_AWARE_HUGEPAGES),y)
 LDLIBS += -lnuma
 endif
